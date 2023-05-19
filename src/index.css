@@ -16,11 +16,6 @@ html {
   box-sizing: inherit;
 }
 
-*:focus {
-  outline: 2px dashed var(--text-color);
-  outline-offset: 3px;
-}
-
 body {
   height: 100%;
   background-color: #fff;
@@ -47,14 +42,6 @@ body {
 
 #root {
   height: 100%;
-}
-
-.app {
-  height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.main-content {
-  flex-grow: 1;
 }
