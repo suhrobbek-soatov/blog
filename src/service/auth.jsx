@@ -4,7 +4,7 @@ const AuthService = {
   async userRegister(user) {
     const res = await axios.post("/users", { user });
 
-    return res;
+    return res.data;
   },
   async userLogin() {
     // const res = await axios.post("/users/login");
