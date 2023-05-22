@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setStorage } from "../utils/utils";
 
 const initialState = {
   isLoading: false,
@@ -18,6 +19,7 @@ export const authSlice = createSlice({
       state.loggedIn = true;
       state.isLoading = false;
       state.user = action.payload;
+      setStorage("token", action.payload.token);
     },
     authUserFailure: (state, action) => {
       state.isLoading = false;
