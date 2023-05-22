@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { removeStorage } from "../utils/utils";
-import { authUserSignOut } from "../slice/auth";
+import { authUserLogout } from "../slice/auth";
 
 const Header = () => {
   const { loggedIn, user } = useSelector(state => state.auth);
