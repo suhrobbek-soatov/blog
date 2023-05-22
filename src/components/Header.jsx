@@ -1,8 +1,18 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { removeStorage } from "../utils/utils";
+import { authUserSignOut } from "../slice/auth";
 
 const Header = () => {
   const { loggedIn, user } = useSelector(state => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    removeStorage("token");
+    dispatch(authUserLogout());
+    navigate("/login");
+  };
 
   return (
     <div className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom container">
@@ -17,7 +27,9 @@ const Header = () => {
               <span>{user.username}</span>
             </li>
             <li className="nav-item me-3">
-              <button className="btn btn-outline-danger">Logout</button>
+              <button className="btn btn-outline-danger" onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           </>
         )}
