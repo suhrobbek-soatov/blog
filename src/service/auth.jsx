@@ -12,7 +12,8 @@ const AuthService = {
   },
 
   async getUser() {
-    // const res = await axios.get("/users");
+    const { data } = await axios.get("/user");
+    return data;
   },
 };
 
