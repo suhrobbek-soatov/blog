@@ -1,5 +1,4 @@
-import { Input } from "../ui";
-import { ValidationError } from "../components";
+import { Input, ValidationError } from "../components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthService from "../service/auth";
