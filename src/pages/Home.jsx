@@ -1,10 +1,28 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../components";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "../slice/article";
+import ArticleService from "../service/article";
 
 const Home = () => {
   const { articles, isLoading } = useSelector(state => state.article);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const getArticles = async () => {
+    dispatch(getArticlesStart());
+    try {
+      const response = await ArticleService.getArticles();
+      dispatch(getArticlesSuccess(response.articles));
+    } catch (error) {
+      dispatch(getArticlesFailure(error.response.data.errors));
+    }
+  };
+
+  useEffect(() => {
+    getArticles();
+  }, []);
 
   return (
     <div className="album py-5">

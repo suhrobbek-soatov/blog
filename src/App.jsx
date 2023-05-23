@@ -8,21 +8,10 @@ import { useEffect } from "react";
 import AuthService from "./service/auth";
 import { authUserSuccess } from "./slice/auth";
 import { getStorage } from "./utils/utils";
-import ArticleService from "./service/article";
-import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "./slice/article";
 
 const App = () => {
   const dispatch = useDispatch();
-
-  const getArticles = async () => {
-    dispatch(getArticlesStart());
-    try {
-      const response = await ArticleService.getArticles();
-      dispatch(getArticlesSuccess(response.articles));
-    } catch (error) {
-      dispatch(getArticlesFailure(error.response.data.errors));
-    }
-  };
+  const { loggedIn } = useSelector(state => state.auth);
 
   const getUser = async () => {
     try {
@@ -38,9 +27,8 @@ const App = () => {
     if (!!token) {
       getUser();
     }
-    getArticles();
   }, []);
-  const { loggedIn } = useSelector(state => state.auth);
+
   return (
     <>
       <Header />
