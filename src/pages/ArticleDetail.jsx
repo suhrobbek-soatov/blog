@@ -21,8 +21,6 @@ const ArticleDetail = () => {
     }
   };
 
-  console.log(articleDetail);
-
   useEffect(() => {
     getArticleDetail();
   }, [slug]);
@@ -43,14 +41,14 @@ const ArticleDetail = () => {
                 <span className="fw-bold">createdAt:</span> {moment(articleDetail.createdAt).format("DD MMM, YYYY")}
               </p>
               <div className="col-md-6">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                  <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-primary text-uppercase">{articleDetail.author.username}</strong>
-                    <p class="mb-auto card-text">{articleDetail.author.bio}</p>
+                <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                  <div className="col p-4 d-flex flex-column position-static">
+                    <strong className="d-inline-block mb-2 text-primary text-uppercase">{articleDetail.author.username}</strong>
+                    <p className="mb-auto card-text">{articleDetail.author.bio}</p>
                   </div>
-                  <div class="col-auto d-none d-lg-block">
-                    <svg class="bd-placeholder-img" width="200" height="240" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="100%" height="100%" fill="#55595c"></rect>
+                  <div className="col-auto d-none d-lg-block">
+                    <svg className="bd-placeholder-img" width={200} height={240} xmlns="http://www.w3.org/2000/svg">
+                      <rect width="100%" height="100%" fill="#55595c" />
                       <text x="50%" y="50%" fill="#eceeef">
                         {articleDetail.author.username.charAt()}
                       </text>
@@ -58,6 +56,7 @@ const ArticleDetail = () => {
                   </div>
                 </div>
               </div>
+
               <p className="fw-400">{articleDetail.body}</p>
             </div>
           )}
