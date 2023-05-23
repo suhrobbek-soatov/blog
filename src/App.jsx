@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 // components
 import { Header } from "./components";
 // pages
-import { ArticleDetail, Home, Login, Register } from "./pages";
+import { ArticleDetail, CreateArticle, Home, Login, Register } from "./pages";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import AuthService from "./service/auth";
@@ -46,6 +46,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/article/:slug" element={<ArticleDetail />} />
+        <Route path="/create-article" element={<CreateArticle />} />
         {loggedIn ? (
           <>
             <Route path="/" element={<Home />} />
