@@ -26,7 +26,7 @@ const Header = () => {
             <li className="nav-item me-3 text-capitalize">
               <span>{user.username}</span>
             </li>
-            <li className="nav-item me-3">
+            <li className="nav-item">
               <button className="btn btn-outline-danger" onClick={handleLogout}>
                 Logout
               </button>
