@@ -10,8 +10,8 @@ const ArticleService = {
     return data;
   },
   async postArticle(article) {
-    const response = await axios.post("/articles", { article });
-    return response;
+    const { data } = await axios.post("/articles", { article });
+    return data;
   },
 };
 
