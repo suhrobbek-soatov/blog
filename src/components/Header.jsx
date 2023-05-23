@@ -23,7 +23,12 @@ const Header = () => {
       <ul className="nav nav-pills d-flex align-items-center">
         {loggedIn && (
           <>
-            <li className="nav-item me-3 text-capitalize">
+            <li className="nav-item me-3">
+              <Link className="text-decoration-none text-dark" to={"/create-article"}>
+                create
+              </Link>
+            </li>
+            <li className="nav-item me-3">
               <span>{user.username}</span>
             </li>
             <li className="nav-item">
