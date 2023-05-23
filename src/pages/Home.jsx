@@ -7,6 +7,7 @@ import ArticleService from "../service/article";
 
 const Home = () => {
   const { articles, isLoading } = useSelector(state => state.article);
+  const { user, loggedIn } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,6 +18,15 @@ const Home = () => {
       dispatch(getArticlesSuccess(response.articles));
     } catch (error) {
       dispatch(getArticlesFailure(error.response.data.errors));
+    }
+  };
+
+  const handleDeleteArticle = async slug => {
+    try {
+      const response = await ArticleService.deleteArticle(slug);
+      getArticles();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -46,8 +56,14 @@ const Home = () => {
                     <button className="btn btn-sm btn-outline-success" onClick={() => navigate(`/article/${slug}`)}>
                       View
                     </button>
-                    <button className="btn btn-sm btn-outline-primary">Edit</button>
-                    <button className="btn btn-sm btn-outline-danger">Delete</button>
+                    {loggedIn && user?.username === author?.username && (
+                      <>
+                        <button className="btn btn-sm btn-outline-primary">Edit</button>
+                        <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteArticle(slug)}>
+                          Delete
+                        </button>
+                      </>
+                    )}
                   </div>
                   <small className="text-muted text-capitalize fw-bold">{author.username}</small>
                 </div>
