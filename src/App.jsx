@@ -9,7 +9,7 @@ import AuthService from "./service/auth";
 import { authUserSuccess } from "./slice/auth";
 import { getStorage } from "./utils/utils";
 import ArticleService from "./service/article";
-import { getArticlesStart, getArticlesSuccess } from "./slice/article";
+import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "./slice/article";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const App = () => {
       const response = await ArticleService.getArticles();
       dispatch(getArticlesSuccess(response.articles));
     } catch (error) {
-      console.log(error);
+      dispatch(getArticlesFailure(error.response.data.errors));
     }
   };
 
@@ -45,10 +45,10 @@ const App = () => {
     <>
       <Header />
       <Routes>
+        <Route path="/article/:slug" element={<ArticleDetail />} />
         {loggedIn ? (
           <>
             <Route path="/" element={<Home />} />
-            <Route path="/article/:slug" element={<ArticleDetail />} />
           </>
         ) : (
           <>
