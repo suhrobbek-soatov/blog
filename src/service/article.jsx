@@ -9,7 +9,10 @@ const ArticleService = {
     const { data } = await axios.get(`/articles/${slug}`);
     return data;
   },
-  // async getArticles() {},
+  async postArticle(article) {
+    const response = await axios.post("/articles", { article });
+    return response;
+  },
 };
 
 export default ArticleService;
