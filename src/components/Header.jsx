@@ -24,7 +24,7 @@ const Header = () => {
         {loggedIn && (
           <>
             <li className="nav-item me-3">
-              <Link className="text-decoration-none text-dark fw-bold text-uppercase" to={"/create-article"}>
+              <Link className="text-dark fw-bold text-uppercase" to={"/create-article"}>
                 create
               </Link>
             </li>
