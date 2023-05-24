@@ -24,12 +24,12 @@ const Header = () => {
         {loggedIn && (
           <>
             <li className="nav-item me-3">
-              <Link className="text-decoration-none text-dark" to={"/create-article"}>
+              <Link className="text-decoration-none text-dark fw-bold text-uppercase" to={"/create-article"}>
                 create
               </Link>
             </li>
             <li className="nav-item me-3">
-              <span>{user.username}</span>
+              <span className="text-uppercase fw-bold">{user.username}</span>
             </li>
             <li className="nav-item">
               <button className="btn btn-outline-danger" onClick={handleLogout}>
