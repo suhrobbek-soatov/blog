@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Loader } from "../components";
+import { ArticleCard, Loader } from "../components";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "../slice/article";
@@ -7,9 +7,7 @@ import ArticleService from "../service/article";
 
 const Home = () => {
   const { articles, isLoading } = useSelector(state => state.article);
-  const { user, loggedIn } = useSelector(state => state.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const getArticles = async () => {
     dispatch(getArticlesStart());
@@ -18,15 +16,6 @@ const Home = () => {
       dispatch(getArticlesSuccess(response.articles));
     } catch (error) {
       dispatch(getArticlesFailure(error.response.data.errors));
-    }
-  };
-
-  const handleDeleteArticle = async slug => {
-    try {
-      const response = await ArticleService.deleteArticle(slug);
-      getArticles();
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -39,38 +28,8 @@ const Home = () => {
       <div className="container">
         {isLoading && <Loader />}
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {articles.map(({ slug, title, description, author }) => (
-            <div className="col" key={slug}>
-              <div className="card h-100 shadow-sm">
-                <svg className="bd-placeholder-img card-img-top" width="100%" height={225} xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
-                  <rect width="100%" height="100%" fill="#55595c" />
-                </svg>
-
-                <div className="card-body">
-                  <p className="card-text mb-1 fw-bold">{title.slice(0, 75)}...</p>
-                  <p className="card-text">{description.slice(0, 120)}...</p>
-                </div>
-
-                <div className="card-footer d-flex justify-content-between align-items-center">
-                  <div className="btn-group">
-                    <button className="btn btn-sm btn-outline-success" onClick={() => navigate(`/article/${slug}`)}>
-                      View
-                    </button>
-                    {loggedIn && user?.username === author?.username && (
-                      <>
-                        <button className="btn btn-sm btn-outline-primary" onClick={() => navigate(`/edit-article/${slug}`)}>
-                          Edit
-                        </button>
-                        <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteArticle(slug)}>
-                          Delete
-                        </button>
-                      </>
-                    )}
-                  </div>
-                  <small className="text-muted text-capitalize fw-bold">{author.username}</small>
-                </div>
-              </div>
-            </div>
+          {articles.map(article => (
+            <ArticleCard {...article} getArticles={getArticles} key={article.slug} />
           ))}
         </div>
       </div>
