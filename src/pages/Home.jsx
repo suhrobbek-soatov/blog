@@ -58,7 +58,9 @@ const Home = () => {
                     </button>
                     {loggedIn && user?.username === author?.username && (
                       <>
-                        <button className="btn btn-sm btn-outline-primary">Edit</button>
+                        <button className="btn btn-sm btn-outline-primary" onClick={() => navigate(`/edit-article/${slug}`)}>
+                          Edit
+                        </button>
                         <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteArticle(slug)}>
                           Delete
                         </button>
