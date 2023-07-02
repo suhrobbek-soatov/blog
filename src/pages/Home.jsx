@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ArticleCard, Loader } from "../components";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "../slice/article";
 import ArticleService from "../service/article";

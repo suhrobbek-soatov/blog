@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import ArticleService from "../service/article";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import article, { getArticleDetailFailure, getArticleDetailStart, getArticleDetailSuccess } from "../slice/article";
+import { getArticleDetailFailure, getArticleDetailStart, getArticleDetailSuccess } from "../slice/article";
 import { Loader } from "../components";
 import moment from "moment/moment";
 
