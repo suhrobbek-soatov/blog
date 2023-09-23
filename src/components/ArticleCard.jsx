@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ArticleService from "../service/article";
 
 const ArticleCard = ({ slug, title, description, author, getArticles }) => {
   const { user, loggedIn } = useSelector(state => state.auth);
@@ -17,7 +18,14 @@ const ArticleCard = ({ slug, title, description, author, getArticles }) => {
   return (
     <div className="col" key={slug}>
       <div className="card h-100 shadow-sm">
-        <svg className="bd-placeholder-img card-img-top" width="100%" height={225} xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+        <svg
+          className="bd-placeholder-img card-img-top"
+          width="100%"
+          height={225}
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          focusable="false"
+        >
           <rect width="100%" height="100%" fill="#55595c" />
         </svg>
 

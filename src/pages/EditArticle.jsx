@@ -11,6 +11,7 @@ import {
 } from "../slice/article";
 import ArticleService from "../service/article";
 import { useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const EditArticle = () => {
   const [title, setTitle] = useState("");
@@ -62,6 +63,10 @@ const EditArticle = () => {
   };
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Blog | {title}</title>
+      </Helmet>
       <div className="text-center">
         <h1 className="fs-2 mb-2">Edit Article</h1>
       </div>

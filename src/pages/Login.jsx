@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AuthService from "../service/auth";
 import { authUserFailure, authUserStart, authUserSuccess } from "../slice/auth";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -28,19 +29,25 @@ const Login = () => {
   };
 
   return (
-    <div className="text-center">
-      <form className="w-25 m-auto" onSubmit={handleSubmitLogin}>
-        <img className="mb-4" src="/images/logo.svg" alt="logo" width={140} />
-        <h1 className="h3 mb-3 fw-normal">Please Login</h1>
-        <ValidationError />
-        <Input label="Email address" state={email} setState={setEmail} type="email" />
-        <Input label="Password" state={password} setState={setPassword} type="password" />
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Blog | Login</title>
+      </Helmet>
+      <div className="text-center">
+        <form className="w-25 m-auto" onSubmit={handleSubmitLogin}>
+          <img className="mb-4" src="/images/logo.svg" alt="logo" width={140} />
+          <h1 className="h3 mb-3 fw-normal">Please Login</h1>
+          <ValidationError />
+          <Input label="Email address" state={email} setState={setEmail} type="email" />
+          <Input label="Password" state={password} setState={setPassword} type="password" />
 
-        <button className="w-100 btn btn-lg btn-primary" disabled={isLoading} type="submit">
-          {isLoading ? "Loading..." : "Login"}
-        </button>
-      </form>
-    </div>
+          <button className="w-100 btn btn-lg btn-primary" disabled={isLoading} type="submit">
+            {isLoading ? "Loading..." : "Login"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

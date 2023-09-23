@@ -4,6 +4,7 @@ import ArticleService from "../service/article";
 import { useDispatch } from "react-redux";
 import { postArticleFailure, postArticleStart, postArticleSuccess } from "../slice/article";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const CreateArticle = () => {
   const [title, setTitle] = useState("");
@@ -18,7 +19,7 @@ const CreateArticle = () => {
     const article = { title, description, body };
     dispatch(postArticleStart());
     try {
-      const response = await ArticleService.postArticle(article);
+      await ArticleService.postArticle(article);
       dispatch(postArticleSuccess());
       navigate("/");
     } catch (error) {
@@ -30,6 +31,10 @@ const CreateArticle = () => {
   const formProps = { title, setTitle, description, setDescription, body, setBody, handleSubmit };
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Blog | Create Post</title>
+      </Helmet>
       <div className="text-center">
         <h1 className="fs-2 mb-2">Create Article</h1>
       </div>

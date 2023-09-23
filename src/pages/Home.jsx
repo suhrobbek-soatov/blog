@@ -3,6 +3,7 @@ import { ArticleCard, Loader } from "../components";
 import { useEffect } from "react";
 import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "../slice/article";
 import ArticleService from "../service/article";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const { articles, isLoading } = useSelector(state => state.article);
@@ -23,16 +24,22 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="album py-5">
-      <div className="container">
-        {isLoading && <Loader />}
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {articles.map(article => (
-            <ArticleCard {...article} getArticles={getArticles} key={article.slug} />
-          ))}
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Blog | Home</title>
+      </Helmet>
+      <div className="album py-5">
+        <div className="container">
+          {isLoading && <Loader />}
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {articles.map(article => (
+              <ArticleCard {...article} getArticles={getArticles} key={article.slug} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

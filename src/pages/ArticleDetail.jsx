@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getArticleDetailFailure, getArticleDetailStart, getArticleDetailSuccess } from "../slice/article";
 import { Loader } from "../components";
 import moment from "moment/moment";
+import { Helmet } from "react-helmet";
 
 const ArticleDetail = () => {
   const { slug } = useParams();
@@ -31,6 +32,10 @@ const ArticleDetail = () => {
         <Loader />
       ) : (
         <>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>{`Blog | ${articleDetail?.title}`}</title>
+          </Helmet>
           {articleDetail && (
             <div className="container p-3">
               <div className="py-5">
