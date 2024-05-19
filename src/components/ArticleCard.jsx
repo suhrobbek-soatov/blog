@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ArticleService from "../service/article";
+
+import ArticleService from "../services/article";
 
 const ArticleCard = ({ slug, title, description, author, getArticles }) => {
   const { user, loggedIn } = useSelector(state => state.auth);
@@ -36,15 +37,24 @@ const ArticleCard = ({ slug, title, description, author, getArticles }) => {
 
         <div className="card-footer d-flex justify-content-between align-items-center">
           <div className="btn-group">
-            <button className="btn btn-sm btn-outline-success" onClick={() => navigate(`/article/${slug}`)}>
+            <button
+              className="btn btn-sm btn-outline-success"
+              onClick={() => navigate(`/article/${slug}`)}
+            >
               View
             </button>
             {loggedIn && user?.username === author?.username && (
               <>
-                <button className="btn btn-sm btn-outline-primary" onClick={() => navigate(`/edit-article/${slug}`)}>
+                <button
+                  className="btn btn-sm btn-outline-primary"
+                  onClick={() => navigate(`/edit-article/${slug}`)}
+                >
                   Edit
                 </button>
-                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteArticle(slug)}>
+                <button
+                  className="btn btn-sm btn-outline-danger"
+                  onClick={() => handleDeleteArticle(slug)}
+                >
                   Delete
                 </button>
               </>

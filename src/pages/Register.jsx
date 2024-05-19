@@ -1,41 +1,41 @@
-import { Input, ValidationError } from "../components";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { authUserFailure, authUserStart, authUserSuccess } from "../slice/auth";
-import AuthService from "../service/auth";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as services from "../services";
+import * as reducers from "../slices/auth";
+import { Input, ValidationError } from "../components";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
   const { isLoading } = useSelector(state => state.auth);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmitRegister = async e => {
     e.preventDefault();
-    dispatch(authUserStart());
-
-    const user = { username, email, password };
+    dispatch(reducers.authUserStart());
 
     try {
-      const response = await AuthService.userRegister(user);
-      dispatch(authUserSuccess(response.user));
+      const response = await services.auth.userRegister({ username, email, password });
+      dispatch(reducers.authUserSuccess(response.user));
       navigate("/");
     } catch (error) {
-      dispatch(authUserFailure(error.response.data.errors));
+      dispatch(reducers.authUserFailure(error.response.data.errors));
     }
   };
 
   return (
-    <>
+    <main>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Blog | Register</title>
       </Helmet>
-      <div className="text-center">
+      <section className="text-center flex-grow-1 d-flex align-items-center">
         <form className="w-25 m-auto" onSubmit={handleSubmitRegister}>
           <img className="mb-4" src="/images/logo.svg" alt="logo" width={140} />
           <h1 className="h3 mb-3 fw-normal">Please register</h1>
@@ -47,9 +47,12 @@ const Register = () => {
           <button className="w-100 btn btn-lg btn-primary" disabled={isLoading} type="submit">
             {isLoading ? "Loading..." : "Register"}
           </button>
+          <p>
+            already registered? <Link to="/login">login</Link>
+          </p>
         </form>
-      </div>
-    </>
+      </section>
+    </main>
   );
 };
 

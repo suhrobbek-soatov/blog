@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
-import { Form } from "../components";
-import { useDispatch } from "react-redux";
-import {
-  getArticleDetailFailure,
-  getArticleDetailStart,
-  getArticleDetailSuccess,
-  postArticleFailure,
-  postArticleStart,
-  postArticleSuccess,
-} from "../slice/article";
-import ArticleService from "../service/article";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Helmet } from "react-helmet";
+
+import * as reducers from "../slices/article";
+import * as services from "../services";
+import { Form } from "../components";
 
 const EditArticle = () => {
   const [title, setTitle] = useState("");
@@ -22,15 +16,15 @@ const EditArticle = () => {
   const { slug } = useParams();
 
   const getArticleDetail = async () => {
-    dispatch(getArticleDetailStart());
+    dispatch(reducers.getArticleDetailStart());
     try {
-      const { article } = await ArticleService.getArticleDetail(slug);
+      const { article } = await services.article.getArticleDetail(slug);
       setTitle(article.title);
       setDescription(article.description);
       setBody(article.body);
-      dispatch(getArticleDetailSuccess(article));
+      dispatch(reducers.getArticleDetailSuccess(article));
     } catch (error) {
-      dispatch(getArticleDetailFailure(error.response.data.errors));
+      dispatch(reducers.getArticleDetailFailure(error.response.data.errors));
     }
   };
 
@@ -41,28 +35,19 @@ const EditArticle = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    dispatch(postArticleStart());
+    dispatch(reducers.postArticleStart());
     try {
       const article = { title, body, description };
-      const response = await ArticleService.editArticle(slug, article);
-      dispatch(postArticleSuccess());
+      await services.article.editArticle(slug, article);
+      dispatch(reducers.postArticleSuccess());
       navigate("/");
     } catch (error) {
-      dispatch(postArticleFailure(error.response.data.errors));
+      dispatch(reducers.postArticleFailure(error.response.data.errors));
     }
   };
 
-  const formProps = {
-    title,
-    setTitle,
-    description,
-    setDescription,
-    body,
-    setBody,
-    handleSubmit,
-  };
   return (
-    <>
+    <main>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Blog | {title}</title>
@@ -70,8 +55,18 @@ const EditArticle = () => {
       <div className="text-center">
         <h1 className="fs-2 mb-2">Edit Article</h1>
       </div>
-      <Form {...formProps} />
-    </>
+      <Form
+        {...{
+          body,
+          title,
+          setBody,
+          setTitle,
+          description,
+          handleSubmit,
+          setDescription,
+        }}
+      />
+    </main>
   );
 };
 

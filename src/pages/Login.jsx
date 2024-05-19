@@ -1,40 +1,40 @@
-import { Input, ValidationError } from "../components";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import AuthService from "../service/auth";
-import { authUserFailure, authUserStart, authUserSuccess } from "../slice/auth";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as reducers from "../slices/auth";
+import * as services from "../services";
+import { Input, ValidationError } from "../components";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
   const { isLoading } = useSelector(state => state.auth);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmitLogin = async e => {
     e.preventDefault();
-    dispatch(authUserStart());
-
-    const user = { email, password };
+    dispatch(reducers.authUserStart());
 
     try {
-      const request = await AuthService.userLogin(user);
-      dispatch(authUserSuccess(request.user));
+      const request = await services.auth.userLogin({ email, password });
+      dispatch(reducers.authUserSuccess(request.user));
       navigate("/");
     } catch (error) {
-      dispatch(authUserFailure(error.response.data.errors));
+      dispatch(reducers.authUserFailure(error.response.data.errors));
     }
   };
 
   return (
-    <>
+    <main>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Blog | Login</title>
       </Helmet>
-      <div className="text-center">
+      <section className="text-center flex-grow-1 d-flex align-items-center">
         <form className="w-25 m-auto" onSubmit={handleSubmitLogin}>
           <img className="mb-4" src="/images/logo.svg" alt="logo" width={140} />
           <h1 className="h3 mb-3 fw-normal">Please Login</h1>
@@ -45,9 +45,12 @@ const Login = () => {
           <button className="w-100 btn btn-lg btn-primary" disabled={isLoading} type="submit">
             {isLoading ? "Loading..." : "Login"}
           </button>
+          <p>
+            not account yet? <Link to="/register">register</Link>
+          </p>
         </form>
-      </div>
-    </>
+      </section>
+    </main>
   );
 };
 

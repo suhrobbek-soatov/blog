@@ -1,21 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
-import { ArticleCard, Loader } from "../components";
 import { useEffect } from "react";
-import { getArticlesFailure, getArticlesStart, getArticlesSuccess } from "../slice/article";
-import ArticleService from "../service/article";
 import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as services from "../services";
+import * as slices from "../slices/article";
+import { ArticleCard, Loader } from "../components";
 
 const Home = () => {
   const { articles, isLoading } = useSelector(state => state.article);
   const dispatch = useDispatch();
 
   const getArticles = async () => {
-    dispatch(getArticlesStart());
+    dispatch(slices.getArticlesStart());
     try {
-      const response = await ArticleService.getArticles();
-      dispatch(getArticlesSuccess(response.articles));
+      const response = await services.article.getArticles();
+      dispatch(slices.getArticlesSuccess(response.articles));
     } catch (error) {
-      dispatch(getArticlesFailure(error.response.data.errors));
+      dispatch(slices.getArticlesFailure(error.response.data.errors));
     }
   };
 
@@ -24,12 +25,12 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <main>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Blog | Home</title>
       </Helmet>
-      <div className="album py-5">
+      <section className="album py-5">
         <div className="container">
           {isLoading && <Loader />}
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -38,8 +39,8 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 };
 

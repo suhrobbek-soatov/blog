@@ -5,14 +5,7 @@ const ValidationError = () => {
   const { error } = useSelector(state => state.auth);
 
   const getError = useCallback(() => {
-    return (
-      !!error &&
-      Object.keys(error).map(name => {
-        const message = name;
-
-        return `${name} - ${error[name]}`;
-      })
-    );
+    return !!error && Object.keys(error).map(name => `${name} - ${error[name]}`);
   }, [error]);
 
   return (
