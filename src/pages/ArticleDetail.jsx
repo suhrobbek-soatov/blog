@@ -47,8 +47,7 @@ const ArticleDetail = () => {
                 <p className="col-md-8 fs-4">{articleDetail.description}</p>
               </div>
               <p className="text-muted">
-                <span className="fw-bold">createdAt:</span>{" "}
-                {moment(articleDetail.createdAt).format("DD MMM, YYYY")}
+                <span className="fw-bold">createdAt:</span> {moment(articleDetail.createdAt).format("DD MMM, YYYY")}
               </p>
               <div className="col-md-6">
                 <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -59,12 +58,7 @@ const ArticleDetail = () => {
                     <p className="mb-auto card-text">{articleDetail.author.bio}</p>
                   </div>
                   <div className="col-auto d-none d-lg-block">
-                    <svg
-                      className="bd-placeholder-img"
-                      width={200}
-                      height={240}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="bd-placeholder-img" width={200} height={240} xmlns="http://www.w3.org/2000/svg">
                       <rect width="100%" height="100%" fill="#55595c" />
                       <text x="50%" y="50%" fill="#eceeef">
                         {articleDetail.author.username.charAt()}
