@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 
-import Input from "./Input";
-import TextArea from "./TextArea";
+import { Input, TextArea } from ".";
 
 const Form = props => {
   const { title, setTitle, description, setDescription, body, setBody, handleSubmit } = props;

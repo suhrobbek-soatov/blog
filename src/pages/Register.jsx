@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as services from "../services";
 import * as reducers from "../slices/auth";
+
 import { Input, ValidationError } from "../components";
 
 const Register = () => {
@@ -35,6 +36,7 @@ const Register = () => {
         <meta charSet="utf-8" />
         <title>Blog | Register</title>
       </Helmet>
+
       <section className="text-center flex-grow-1 d-flex align-items-center">
         <form className="w-25 m-auto" onSubmit={handleSubmitRegister}>
           <img className="mb-4" src="/images/logo.svg" alt="logo" width={140} />
@@ -43,10 +45,10 @@ const Register = () => {
           <Input label="Username" state={username} setState={setUsername} />
           <Input label="Email address" state={email} setState={setEmail} type="email" />
           <Input label="Password" state={password} setState={setPassword} type="password" />
-
           <button className="w-100 btn btn-lg btn-primary" disabled={isLoading} type="submit">
             {isLoading ? "Loading..." : "Register"}
           </button>
+
           <p>
             already registered? <Link to="/login">login</Link>
           </p>

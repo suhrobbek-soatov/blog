@@ -1,23 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { removeStorage } from "../utils/utils";
+import { storage } from "../lib";
 import { authUserLogout } from "../slices/auth";
 
 const Header = () => {
-  const { loggedIn, user } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { loggedIn, user } = useSelector(state => state.auth);
 
   const handleLogout = () => {
-    removeStorage("token");
+    storage.local.remove("token");
     dispatch(authUserLogout());
     navigate("/login");
   };
 
   return (
     <div className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom container">
-      <Link className="d-flex align-items-center me-md-auto" to={"/"}>
+      <Link className="d-flex align-items-center me-md-auto" to="/">
         <img src="/images/logo.svg" alt="logo" />
       </Link>
 
@@ -25,7 +25,7 @@ const Header = () => {
         {loggedIn && (
           <>
             <li className="nav-item me-3">
-              <Link className="text-dark fw-bold text-uppercase" to={"/create-article"}>
+              <Link className="text-dark fw-bold text-uppercase" to="/create-article">
                 create
               </Link>
             </li>

@@ -4,17 +4,19 @@ import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as reducers from "../slices/article";
 import * as services from "../services";
+import * as reducers from "../slices/article";
+
 import { Loader } from "../components";
 
 const ArticleDetail = () => {
   const { slug } = useParams();
-  const { isLoading, articleDetail } = useSelector(state => state.article);
   const dispatch = useDispatch();
+  const { isLoading, articleDetail } = useSelector(state => state.article);
 
   const getArticleDetail = async () => {
     dispatch(reducers.getArticleDetailStart());
+
     try {
       const { article } = await services.article.getArticleDetail(slug);
       dispatch(reducers.getArticleDetailSuccess(article));
@@ -29,14 +31,15 @@ const ArticleDetail = () => {
 
   return (
     <main>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Blog | ${articleDetail?.title}`}</title>
+      </Helmet>
+
       {isLoading ? (
         <Loader />
       ) : (
         <>
-          <Helmet>
-            <meta charSet="utf-8" />
-            <title>{`Blog | ${articleDetail?.title}`}</title>
-          </Helmet>
           {articleDetail && (
             <div className="container p-3">
               <div className="py-5">

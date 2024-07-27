@@ -11,9 +11,9 @@ const ValidationError = () => {
   return (
     !!error && (
       <>
-        {getError().map(item => (
-          <div key={item} className="text-danger mb-1" role="alert">
-            {item}
+        {getError().map((err, idx) => (
+          <div className="text-danger mb-1" role="alert" key={idx}>
+            {err}
           </div>
         ))}
       </>

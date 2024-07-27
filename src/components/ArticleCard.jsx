@@ -1,23 +1,23 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import ArticleService from "../services/article";
+import { article } from "../services";
 
 const ArticleCard = ({ slug, title, description, author, getArticles }) => {
-  const { user, loggedIn } = useSelector(state => state.auth);
   const navigate = useNavigate();
+  const { user, loggedIn } = useSelector(state => state.auth);
 
   const handleDeleteArticle = async slug => {
     try {
-      await ArticleService.deleteArticle(slug);
+      await article.deleteArticle(slug);
       getArticles();
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
-    <div className="col" key={slug}>
+    <div className="col">
       <div className="card h-100 shadow-sm">
         <svg
           className="bd-placeholder-img card-img-top"

@@ -1,4 +1,4 @@
-import http from "./api";
+import { http } from "../lib";
 
 const auth = {
   async userRegister(user) {

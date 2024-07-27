@@ -3,8 +3,9 @@ import { Helmet } from "react-helmet";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import * as reducers from "../slices/article";
 import * as services from "../services";
+import * as reducers from "../slices/article";
+
 import { Form } from "../components";
 
 const CreateArticle = () => {
@@ -35,6 +36,7 @@ const CreateArticle = () => {
         <meta charSet="utf-8" />
         <title>Blog | Create Post</title>
       </Helmet>
+
       <div className="text-center">
         <h1 className="fs-2 mb-2">Create Article</h1>
       </div>

@@ -3,8 +3,9 @@ import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as reducers from "../slices/auth";
 import * as services from "../services";
+import * as reducers from "../slices/auth";
+
 import { Input, ValidationError } from "../components";
 
 const Login = () => {
@@ -34,6 +35,7 @@ const Login = () => {
         <meta charSet="utf-8" />
         <title>Blog | Login</title>
       </Helmet>
+
       <section className="text-center flex-grow-1 d-flex align-items-center">
         <form className="w-25 m-auto" onSubmit={handleSubmitLogin}>
           <img className="mb-4" src="/images/logo.svg" alt="logo" width={140} />

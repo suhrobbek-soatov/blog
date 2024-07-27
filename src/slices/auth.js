@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setStorage } from "../utils/utils";
+import { storage } from "../lib";
 
 const initialState = {
   isLoading: false,
@@ -19,7 +19,7 @@ export const authSlice = createSlice({
       state.loggedIn = true;
       state.isLoading = false;
       state.user = action.payload;
-      setStorage("token", action.payload.token);
+      storage.local.set("token", action.payload.token);
     },
     authUserFailure: (state, action) => {
       state.isLoading = false;
@@ -32,5 +32,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { authUserStart, authUserSuccess, authUserFailure, authUserLogout } = authSlice.actions;
+export const { authUserStart, authUserSuccess, authUserFailure, authUserLogout } =
+  authSlice.actions;
 export default authSlice.reducer;
